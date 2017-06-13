@@ -1,22 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shellSort = function (arr) {
-    var arrCopy = arr;
-    return arrCopy;
-};
-var selectionSort = function (arr) {
+exports.shellSort = function (arr, factor) {
+    if (arr === void 0) { arr = []; }
+    if (factor === void 0) { factor = 1; }
     var arrCopy = arr.slice();
-    for (var i = 1; i < arr.length; i++) {
-        var currentValue = arrCopy[i];
-        for (var j = i; j > 0; j--) {
-            if (currentValue < arrCopy[j - 1]) {
-                arrCopy[j] = arrCopy[j - 1];
-            }
-            else {
-                arrCopy[j] = currentValue;
-                break;
-            }
+    if (factor < 1 || factor > arr.length) {
+        throw Error('factor must be greater than 1 and smaller than array length');
+    }
+    var gap = Math.floor(arrCopy.length / factor);
+    while (gap > 0) {
+        for (var i = 0; i < gap; i++) {
         }
+        gap = Math.floor(gap / factor);
     }
     return arrCopy;
 };
