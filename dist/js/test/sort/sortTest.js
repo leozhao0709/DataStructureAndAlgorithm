@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var sortUtils_1 = require("./sortUtils");
-var insertionSort_1 = require("../../src/sort/insertionSort");
 var shellSort_1 = require("../../src/sort/shellSort");
-var n = 10000;
+var mergeSort_1 = require("../../src/sort/mergeSort");
+var n = 100000;
 var arr1 = sortUtils_1.getRandomArray(n, 0, n);
 // const arr1 = getNearlySortedArray(n, 10);
 // sortPerformanceTest('selectionSort', selectionSort, arr1);
-sortUtils_1.sortPerformanceTest('insertionSort', insertionSort_1.insertionSort, arr1);
+// sortPerformanceTest('insertionSort', insertionSort, arr1);
 sortUtils_1.sortPerformanceTest('shellSort', shellSort_1.shellSort, arr1);
+sortUtils_1.sortPerformanceTest('mergeSort', mergeSort_1.mergeSort, arr1);
