@@ -8,6 +8,4 @@ var arr1 = sortUtils_1.getRandomArray(n, 0, n);
 // const arr1 = getNearlySortedArray(n, 10);
 // sortPerformanceTest('selectionSort', selectionSort, arr1);
 sortUtils_1.sortPerformanceTest('insertionSort', insertionSort_1.insertionSort, arr1);
-sortUtils_1.sortPerformanceTest('insertionSort1', insertionSort_1.insertionSort1, arr1);
 sortUtils_1.sortPerformanceTest('shellSort', shellSort_1.shellSort, arr1);
-sortUtils_1.sortPerformanceTest('shellSort1', shellSort_1.shellSort1, arr1);
