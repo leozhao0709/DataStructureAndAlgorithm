@@ -1,9 +1,10 @@
-import { getRandomArray, sortPerformanceTest, getNearlySortedArray } from './sortUtils';
+import { getRandomArray, getNearlySortedArray } from '../../src/utils/getArray';
 import { selectionSort } from '../../src/sort/selectionSort';
 import { insertionSort } from '../../src/sort/insertionSort';
 import { shellSort } from '../../src/sort/shellSort';
 import { mergeSort } from '../../src/sort/mergeSort';
 import { quickSort, quickSort1 } from '../../src/sort/quickSort';
+import { sortPerformanceTest } from './sortTestUtils';
 
 const n = 1000000;
 const arr1 = getRandomArray(n, 0, n);
