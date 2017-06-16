@@ -56,6 +56,7 @@ exports.sortPerformanceTest = function (sortName, sortFunction, arr) {
     var arrCopy = sortFunction(arr.slice());
     console.timeEnd(sortName);
     if (!isSorted(arrCopy)) {
+        exports.printArr(arrCopy);
         throw Error(sortName + " is wrong!");
     }
     else {

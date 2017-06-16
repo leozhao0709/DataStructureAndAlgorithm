@@ -60,6 +60,7 @@ export const sortPerformanceTest = <T>(sortName: string, sortFunction: (arr: T[]
   console.timeEnd(sortName);
 
   if (!isSorted(arrCopy)) {
+    printArr(arrCopy);
     throw Error(`${sortName} is wrong!`);
   } else {
     console.log(`${sortName} succeed!`);
