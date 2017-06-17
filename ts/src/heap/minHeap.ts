@@ -3,6 +3,18 @@ export class MinHeap<T> {
   private _arr: T[] = [];
 
   /**
+   * heapify
+   */
+  public heapify(arr: T[]) {
+    const arrCopy = arr.slice();
+    this._arr = arrCopy;
+
+    for (let i = Math.floor((arrCopy.length - 1) / 2); i >= 0; i--) {
+      this.shiftDown(i);
+    }
+  }
+
+  /**
    * insert
    */
   public insertItem(item: T) {

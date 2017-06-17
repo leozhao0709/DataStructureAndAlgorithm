@@ -7,6 +7,16 @@ var MaxHeap = (function () {
     }
     ;
     /**
+     * heapify
+     */
+    MaxHeap.prototype.heapify = function (arr) {
+        var arrCopy = arr.slice();
+        this._arr = arrCopy;
+        for (var i = Math.floor((arrCopy.length - 1) / 2); i >= 0; i--) {
+            this.shiftDown(i);
+        }
+    };
+    /**
      * isEmpty
      */
     MaxHeap.prototype.isEmpty = function () {
