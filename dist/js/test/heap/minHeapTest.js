@@ -5,9 +5,10 @@ var minHeap_1 = require("../../src/heap/minHeap");
 var sortTestUtils_1 = require("../sort/sortTestUtils");
 var shellSort_1 = require("../../src/sort/shellSort");
 var quickSort_1 = require("../../src/sort/quickSort");
+var heaoSort_1 = require("../../src/heap/heaoSort");
 var n = 1000000;
-// const arr1 = getRandomArray(n, 0, n);
-var arr1 = getArray_1.getNearlySortedArray(n, 10);
+var arr1 = getArray_1.getRandomArray(n, 0, n);
+// const arr1 = getNearlySortedArray(n, 10);
 var heapSort1 = function (arr) {
     var minHeap = new minHeap_1.MinHeap();
     var arrCopy = arr;
@@ -39,3 +40,4 @@ sortTestUtils_1.sortPerformanceTest('quickSort', quickSort_1.quickSort, arr1);
 sortTestUtils_1.sortPerformanceTest('quickSort1', quickSort_1.quickSort1, arr1);
 sortTestUtils_1.sortPerformanceTest('heapSort1', heapSort1, arr1);
 sortTestUtils_1.sortPerformanceTest('heapSort2', heapSort2, arr1);
+sortTestUtils_1.sortPerformanceTest('heapSort', heaoSort_1.heapSort, arr1);

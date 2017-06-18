@@ -9,7 +9,7 @@ export class MinHeap<T> {
     const arrCopy = arr.slice();
     this._arr = arrCopy;
 
-    for (let i = Math.floor((arrCopy.length - 1) / 2); i >= 0; i--) {
+    for (let i = Math.floor((arrCopy.length - 2) / 2); i >= 0; i--) {
       this.shiftDown(i);
     }
   }
