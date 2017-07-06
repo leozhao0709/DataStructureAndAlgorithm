@@ -15,12 +15,12 @@ class ReversePolishNotation {
     private String suffixExpression;
     
 
-    public ReversePolishNotation(String expression) {
+    ReversePolishNotation(String expression) {
         this.infixExpression = expression;
         this.suffixExpression = "";
     }
 
-    public String getSuffixExpression() {
+    String getSuffixExpression() {
         Stack<Character> ops = new Stack<Character>();
 
         int i = 0;
@@ -52,6 +52,7 @@ class ReversePolishNotation {
                     if (currentChar != ')') {
                         ops.push(currentChar);
                     } else {
+                        // need pop the '(' and do not print it
                         ops.pop();
                     }
                 }
@@ -69,24 +70,19 @@ class ReversePolishNotation {
     }
 
     private boolean shouldPushIntoStackDirectly(Character op1, Stack<Character> ops) {
-        if (ops.empty()) {
+        if (ops.empty())
+        {
             return true;
         }
 
-        if (op1 == '(') {
+        if (op1 == '(')
+        {
             return true;
         }
 
         Character opsTop = ops.peek();
 
-        if (opsTop == '(') {
-            return true;
-        }
+        return opsTop == '(' || (opsTop == '+' || opsTop == '-') && (op1 == '*' || op1 == '/');
 
-        if ((opsTop == '+' || opsTop == '-') && (op1 == '*' || op1 == '/')) {
-            return true;
-        }
-
-        return false;
     }
 }
