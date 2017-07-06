@@ -11,7 +11,9 @@ public class ReversePolishNotationTest {
 
     @org.junit.Before
     public void setUp() throws Exception {
-        String expression = "9+ (3-1)*3+10/2";
+        String expression = "9+(3-1)*3+10/2";
+//        String expression = "9+5-6+4";
+//        String expression = "5*(6*3/5+5*5)";
         this.reversePolishNotation = new ReversePolishNotation(expression);
     }
 
