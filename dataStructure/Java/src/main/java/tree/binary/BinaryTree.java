@@ -32,6 +32,9 @@ class BinaryTree<T> {
         Node<String> F = new Node<String>("F");
         Node<String> G = new Node<String>("G");
         Node<String> H = new Node<String>("H");
+        Node<String> I = new Node<String>("I");
+        Node<String> J = new Node<String>("J");
+        Node<String> K = new Node<String>("K");
 
         root.setLeftChild(B);
         root.setRightChild(C);
@@ -40,6 +43,9 @@ class BinaryTree<T> {
         C.setRightChild(F);
         F.setLeftChild(G);
         F.setRightChild(H);
+        E.setRightChild(I);
+        I.setLeftChild(J);
+        I.setRightChild(K);
 
         return tree;
     }
@@ -74,6 +80,11 @@ class BinaryTree<T> {
     }
 
     void preOrderTraverseNonRec(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
         Stack<Node<T>> stack = new Stack<Node<T>>();
         stack.push(node);
 
@@ -91,6 +102,11 @@ class BinaryTree<T> {
     }
 
     void inOrderTraverseNonRec(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
         Stack<Node<T>> stack = new Stack<Node<T>>();
         stack.push(node);
 
@@ -128,49 +144,71 @@ class BinaryTree<T> {
     }
 
     void postOrderTraverseNonRec(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
         Stack<Node<T>> stack = new Stack<Node<T>>();
         stack.push(node);
 
-        while (!stack.empty()) {
-            Node<T> currentPeekingNode = stack.peek();
-
-            if (currentPeekingNode.getLeftChild() != null && !currentPeekingNode.getLeftChild().isVisited()) {
-                stack.push(currentPeekingNode.getLeftChild());
-            } else if (currentPeekingNode.getRightChild() != null && !currentPeekingNode.getRightChild().isVisited()) {
-                stack.push(currentPeekingNode.getRightChild());
-            } else {
-                stack.pop();
-                System.out.println(currentPeekingNode.getData());
-                currentPeekingNode.setVisited(true);
-            }
-        }
-
-//        boolean leftTreeFinishTraverse = false;
-//        boolean rightTreeFinishTraverse = false;
-//
+        /*
+            use the node visited parameters, like traverse graph
+         */
 //        while (!stack.empty()) {
 //            Node<T> currentPeekingNode = stack.peek();
 //
-//            if (currentPeekingNode.getLeftChild() != null && !leftTreeFinishTraverse) {
+//            if (currentPeekingNode.getLeftChild() != null && !currentPeekingNode.getLeftChild().isVisited()) {
 //                stack.push(currentPeekingNode.getLeftChild());
-//                leftTreeFinishTraverse = false;
-//            } else if (currentPeekingNode.getRightChild() != null && !rightTreeFinishTraverse) {
+//            } else if (currentPeekingNode.getRightChild() != null && !currentPeekingNode.getRightChild().isVisited()) {
 //                stack.push(currentPeekingNode.getRightChild());
-//                rightTreeFinishTraverse = false;
 //            } else {
 //                stack.pop();
 //                System.out.println(currentPeekingNode.getData());
-//                if (!leftTreeFinishTraverse) {
-//                    leftTreeFinishTraverse = true;
-//                } else if(!rightTreeFinishTraverse) {
-//                     rightTreeFinishTraverse = true;
-//                } else {
-//
-//                }
+//                currentPeekingNode.setVisited(true);
 //            }
-//
-//
 //        }
+
+
+        /*
+            None visited parameters
+         */
+
+        Node<T> currentNode;
+        Node<T> lastVisitedNode = null;
+
+        while (!stack.empty()) {
+            currentNode = stack.peek();
+            // if last visited right child, then just print current Node. If last visited left child, then start traverse
+            // right child. If none left nor right child is last visited, then it must be traverse some right child, because
+            // if we first traverse or left child.
+            if (lastVisitedNode == currentNode.getRightChild()) {
+                System.out.println(currentNode.getData());
+                lastVisitedNode = stack.pop();
+            } else if (lastVisitedNode == currentNode.getLeftChild()) {
+                if (currentNode.getRightChild() != null) {
+                    stack.push(currentNode.getRightChild());
+                } else {
+                    System.out.println(currentNode.getData());
+                    lastVisitedNode = stack.pop();
+                }
+            } else {
+                while (currentNode.getLeftChild() != null) {
+                    stack.push(currentNode.getLeftChild());
+                    currentNode = currentNode.getLeftChild();
+                }
+
+                currentNode = stack.peek();
+                if (currentNode.getRightChild() != null) {
+                    stack.push(currentNode.getRightChild());
+                } else {
+                    System.out.println(currentNode.getData());
+                    lastVisitedNode = stack.pop();
+                }
+            }
+
+        }
+
     }
 
 }
