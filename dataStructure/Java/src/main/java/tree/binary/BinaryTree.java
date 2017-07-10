@@ -99,6 +99,7 @@ class BinaryTree<T> {
                 stack.push(currentNode.getLeftChild());
             }
         }
+
     }
 
     void inOrderTraverseNonRec(Node<T> node) {
@@ -124,20 +125,46 @@ class BinaryTree<T> {
 //            }
 //        }
 
-        boolean isNewNode = true;
+//        boolean isNewNode = true;
+//        while (!stack.empty()) {
+//            Node<T> currentPeekingNode = stack.peek();
+//            if (currentPeekingNode.getLeftChild() != null && isNewNode) {
+//                stack.push(currentPeekingNode.getLeftChild());
+//                isNewNode = true;
+//            } else {
+//                Node<T> popNode = stack.pop();
+//                System.out.println(popNode.getData());
+//                if (popNode.getRightChild() != null) {
+//                    stack.push(popNode.getRightChild());
+//                    isNewNode = true;
+//                } else {
+//                    isNewNode = false;
+//                }
+//            }
+//        }
+
         while (!stack.empty()) {
-            Node<T> currentPeekingNode = stack.peek();
-            if (currentPeekingNode.getLeftChild() != null && isNewNode) {
-                stack.push(currentPeekingNode.getLeftChild());
-                isNewNode = true;
+            Node<T> currentNode = stack.peek();
+            // push all left child into stack
+            while (currentNode.getLeftChild() != null) {
+                stack.push(currentNode.getLeftChild());
+                currentNode = stack.peek();
+            }
+
+            // first print left most child
+            currentNode = stack.pop();
+            System.out.println(currentNode.getData());
+            // left child most has right child, then push right child
+            if (currentNode.getRightChild() != null) {
+                stack.push(currentNode.getRightChild());
             } else {
-                Node<T> popNode = stack.pop();
-                System.out.println(popNode.getData());
-                if (popNode.getRightChild() != null) {
-                    stack.push(popNode.getRightChild());
-                    isNewNode = true;
-                } else {
-                    isNewNode = false;
+                // if left child doesn't have right child and has its parent in stack, then print and to see if parent has right child
+                if (!stack.empty()) {
+                    currentNode = stack.pop();
+                    System.out.println(currentNode.getData());
+                    if (currentNode.getRightChild() != null) {
+                        stack.push(currentNode.getRightChild());
+                    }
                 }
             }
         }

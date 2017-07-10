@@ -1,9 +1,6 @@
 package stack.rpn;
 
-import java.util.Arrays;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by lzhao on 7/5/17.
