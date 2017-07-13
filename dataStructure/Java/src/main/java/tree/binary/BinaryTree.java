@@ -5,7 +5,7 @@ import java.util.Stack;
  * Created by lzhao on 7/8/17.
  */
 
-class BinaryTree<T> {
+class BinaryTree<T extends Comparable<T>> {
 
     private Node<T> root;
 

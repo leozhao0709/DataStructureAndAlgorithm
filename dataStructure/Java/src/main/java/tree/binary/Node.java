@@ -1,10 +1,12 @@
 package tree.binary;
 
+import java.util.Comparator;
+
 /**
  * Created by lzhao on 7/8/17.
  */
 
-class Node<T> {
+class Node<T extends Comparable<T>> {
 
     private T data;
     private Node<T> leftChild;
@@ -48,4 +50,6 @@ class Node<T> {
     void setLeftChild(Node<T> data) {
         this.leftChild = data;
     }
+
+
 }
