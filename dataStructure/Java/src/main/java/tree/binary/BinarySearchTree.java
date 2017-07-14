@@ -105,4 +105,78 @@ class BinarySearchTree<T extends Comparable<T>> {
         }
         return false;
     }
+
+    Node<T>[] getSuccessor(Node node) {
+        if (node == null || node.getRightChild() == null || node.getLeftChild() == null) {
+            return null;
+        }
+
+        Node successor = node.getRightChild();
+
+        Node successorParent = successor;
+
+        while (successor.getLeftChild() != null) {
+            successorParent = successor;
+            successor = successor.getLeftChild();
+            System.out.println(successor.getData());
+        }
+
+        return  (Node<T>[]) new Node[]{successor, successorParent};
+    }
+
+    void deleteNode(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+
+        Node<T> currentNode = this.root;
+        Node<T> parentNode = this.root;
+        boolean isLeftChild = false;
+
+        // find current node
+        while (currentNode != null) {
+            if (node.getData().compareTo(currentNode.getData()) < 0) {
+                parentNode = currentNode;
+                currentNode = currentNode.getLeftChild();
+                isLeftChild = true;
+            } else if (node.getData().compareTo(currentNode.getData()) > 0) {
+                parentNode = currentNode;
+                currentNode = currentNode.getRightChild();
+                isLeftChild = false;
+            } else {
+                if (currentNode.getLeftChild() == null && currentNode.getRightChild() == null) {
+                    currentNode = null;
+                } else if (currentNode.getLeftChild() == null) {
+                    if (isLeftChild) {
+                        parentNode.setLeftChild(currentNode.getRightChild());
+                    } else {
+                        parentNode.setRightChild(currentNode.getRightChild());
+                    }
+                } else if (currentNode.getRightChild() == null) {
+                    if (isLeftChild) {
+                        parentNode.setLeftChild(currentNode.getLeftChild());
+                    } else {
+                        parentNode.setRightChild(currentNode.getLeftChild());
+                    }
+                } else {
+                    Node<T> successor = this.getSuccessor(currentNode)[0];
+                    Node<T> successorParent = this.getSuccessor(currentNode)[1];
+
+                    if (currentNode.getRightChild() != successor) {
+                        successor.setRightChild(currentNode.getRightChild());
+                        successorParent.setLeftChild(null);
+                    }
+                    successor.setLeftChild(currentNode.getLeftChild());
+                    if (isLeftChild) {
+                        parentNode.setLeftChild(successor);
+                    } else {
+                        parentNode.setRightChild(successor);
+                    }
+
+                }
+                return;
+            }
+        }
+        
+    }
 }
