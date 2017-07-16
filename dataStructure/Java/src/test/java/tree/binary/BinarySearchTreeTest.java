@@ -17,7 +17,7 @@ public class BinarySearchTreeTest {
     public void setUp() throws Exception {
         this.tree = new BinarySearchTree<Integer>();
 
-        int[] arr = new int[] {55, 34, 56, 90, 78, 65, 1, 9, 8, 11, 0, 95, 55};
+        int[] arr = new int[] {55, 34, 56, 90, 78, 65, 1, 9, 8, 11, 0, 95};
 
         for (int anArr : arr) {
             this.tree.insertNode(new Node<Integer>(anArr));
