@@ -1,7 +1,5 @@
 package tree.binary;
 
-import java.util.Arrays;
-
 /**
  * Created by lzhao on 7/12/17.
  */
@@ -92,7 +90,7 @@ class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    boolean findNode(Node<T> node) {
+    Node<T> findNode(Node<T> node) {
         if (this.root != null) {
             Node<T> currentNode = this.root;
             while (currentNode != null) {
@@ -101,40 +99,28 @@ class BinarySearchTree<T extends Comparable<T>> {
                 } else if (node.getData().compareTo(currentNode.getData()) > 0) {
                     currentNode = currentNode.getRightChild();
                 } else {
-                    return true;
+                    return currentNode;
                 }
             }
         }
-        return false;
+        return null;
     }
 
-    Node<T>[] getSuccessor(Node node) {
-        if (node == null || node.getRightChild() == null || node.getLeftChild() == null) {
-            return null;
+    Node<T> findMinNode(Node<T> node) {
+        Node<T> currentNode = node;
+
+        while (currentNode.getLeftChild() != null) {
+            currentNode = currentNode.getLeftChild();
         }
 
-        Node successor = node.getRightChild();
-
-        Node successorParent = node;
-
-        while (successor.getLeftChild() != null) {
-            successorParent = successor;
-            successor = successor.getLeftChild();
-        }
-
-        return (Node<T>[]) new Node[]{successor, successorParent};
+        return currentNode;
     }
 
     void deleteNode(Node<T> node) {
-        if (node == null) {
-            return;
-        }
-
+        Node<T> parentNode = this.root;
         Node<T> currentNode = this.root;
-        Node<T> parentNode = null;
-        boolean isLeftChild = false;
 
-        // find current node
+        boolean isLeftChild = false;
         while (currentNode != null) {
             if (node.getData().compareTo(currentNode.getData()) < 0) {
                 parentNode = currentNode;
@@ -164,38 +150,17 @@ class BinarySearchTree<T extends Comparable<T>> {
                         parentNode.setRightChild(currentNode.getLeftChild());
                     }
                 } else {
-                    Node<T> successor = this.getSuccessor(currentNode)[0];
-                    Node<T> successorParent = this.getSuccessor(currentNode)[1];
-
-//                    System.out.println(successor.getData());
-//                    System.out.println(successorParent.getData());
-//                    System.out.println();
-
-                    if (currentNode != successorParent) {
-                        // successor parent should set left child to successor's right child
-                        successorParent.setLeftChild(successor.getRightChild());
-                        successor = new Node<T>(successor.getData());
-                        successor.setLeftChild(currentNode.getLeftChild());
-                        successor.setRightChild(currentNode.getRightChild());
-                    } else {
-                        successor = new Node<T>(successor.getData());
-                        successor.setLeftChild(currentNode.getLeftChild());
-                    }
-
-                    if (parentNode == null) {
-                        this.root = successor;
-                    } else {
-                        if (isLeftChild) {
-                            parentNode.setLeftChild(successor);
-                        } else {
-                            parentNode.setRightChild(successor);
-                        }
-                    }
-
+                    Node<T> successor = this.findMinNode(currentNode.getRightChild());
+                    T value = successor.getData();
+                    this.deleteNode(successor);
+                    currentNode.setData(value);
                 }
+
                 return;
             }
         }
 
     }
+
+
 }

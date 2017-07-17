@@ -13,6 +13,21 @@ public class BinarySearchTreeTest {
 
     private BinarySearchTree<Integer> tree;
 
+    /**
+     *
+     * @throws Exception
+     *
+     *                  55
+     *                /     \
+     *              34      56
+     *             /           \
+     *            1             90
+     *          /   \          /  \
+     *         0     9       78    95
+     *              /  \       \
+     *             8   11       65
+     *
+     */
     @Before
     public void setUp() throws Exception {
         this.tree = new BinarySearchTree<Integer>();
@@ -45,29 +60,24 @@ public class BinarySearchTreeTest {
     @Test
     public void findNode() throws Exception {
 
-        assertTrue(this.tree.findNode(new Node<Integer>(55)));
-        assertTrue(this.tree.findNode(new Node<Integer>(8)));
-        assertTrue(this.tree.findNode(new Node<Integer>(9)));
-        assertTrue(this.tree.findNode(new Node<Integer>(78)));
-        assertFalse(this.tree.findNode(new Node<Integer>(10)));
-        assertTrue(this.tree.findNode(new Node<Integer>(11)));
+        assertEquals(55, (int)this.tree.findNode(new Node<Integer>(55)).getData());
+        assertEquals(8, (int)this.tree.findNode(new Node<Integer>(8)).getData());
+        assertEquals(9, (int)this.tree.findNode(new Node<Integer>(9)).getData());
+        assertEquals(78, (int)this.tree.findNode(new Node<Integer>(78)).getData());
+        assertEquals(11, (int)this.tree.findNode(new Node<Integer>(11)).getData());
+        assertEquals(null, this.tree.findNode(new Node<Integer>(10)));
     }
 
     @Test
-    public void getSuccessor() throws Exception {
-
-        Node node4 = this.tree.getSuccessor(this.tree.getRoot().getRightChild().getRightChild())[0];
-
-        assertEquals(95, node4.getData());
-
+    public void findMinNode() throws Exception {
+        assertEquals(0, (int)this.tree.findMinNode(this.tree.getRoot()).getData());
     }
 
     @Test
     public void deleteNode() throws Exception {
-        this.tree.deleteNode(new Node<Integer>(90));
+        this.tree.deleteNode(new Node<Integer>(55));
+
         this.tree.inOrderTraverse(this.tree.getRoot());
-
-
     }
 
 }
