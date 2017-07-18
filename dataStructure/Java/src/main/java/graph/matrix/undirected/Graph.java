@@ -1,6 +1,8 @@
 package graph.matrix.undirected;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -13,12 +15,14 @@ class Graph {
     private int[][] edgeMatrix;
     private int maxSize;
     private int nVertex;
+    private boolean[] vertexVisited;
 
     Graph(int maxSize) {
         this.maxSize = maxSize;
         
         this.vertexList = new Vertex[maxSize];
         this.edgeMatrix = new int[maxSize][maxSize];
+        this.vertexVisited = new boolean[maxSize];
 
         for (int i = 0; i < maxSize; i++) {
             for (int j = 0; j < maxSize; j++) {
@@ -60,8 +64,71 @@ class Graph {
         Stack<Vertex> stack = new Stack<Vertex>();
         stack.push(this.vertexList[0]);
 
+        stackloop:
         while (!stack.empty()) {
-            
+            Vertex v = stack.pop();
+
+            int vIndex = -1;
+            for (int i = 0; i < nVertex; i++) {
+                if (vertexList[i] == v) {
+                    if (!vertexVisited[i]) {
+                        System.out.println(v);
+                        this.vertexVisited[i] = true;
+                        vIndex = i;
+                        break;
+                    } else {
+                        continue stackloop;
+                    }
+                }
+            }
+
+
+            // already visited
+//            if (vIndex != -1) {
+                for (int i = 0; i < nVertex; i++) {
+                    if (this.edgeMatrix[vIndex][i] != 0 && this.edgeMatrix[vIndex][i] != Integer.MAX_VALUE && !this.vertexVisited[i]) {
+                        stack.push(this.vertexList[i]);
+                    }
+                }
+//            }
+        }
+
+        for (int i = 0; i < nVertex; i++) {
+            this.vertexVisited[i] = false;
+        }
+
+
+    }
+
+    void BFS() {
+        Queue<Vertex> queue = new LinkedList<Vertex>();
+        queue.offer(this.vertexList[0]);
+
+        stackloop:
+        while (!queue.isEmpty()) {
+            Vertex v = queue.poll();
+
+            int vIndex = -1;
+            for (int i = 0; i < nVertex; i++) {
+                if (this.vertexList[i] == v) {
+                    if (!this.vertexVisited[i]) {
+                        this.vertexVisited[i] = true;
+                        System.out.println(v);
+                        vIndex = i;
+                        break;
+                    } else {
+                        // already visited this vertex, then don't consider this one again
+                        continue stackloop;
+                    }
+                }
+            }
+
+            for (int i = 0; i < nVertex; i++) {
+                if (this.edgeMatrix[vIndex][i] != 0 && this.edgeMatrix[vIndex][i] != Integer.MAX_VALUE && !this.vertexVisited[i]) {
+                    queue.offer(this.vertexList[i]);
+                }
+            }
+
         }
     }
 }

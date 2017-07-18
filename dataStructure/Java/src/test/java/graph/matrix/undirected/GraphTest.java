@@ -60,4 +60,13 @@ public class GraphTest {
         assertEquals(8, this.graph.getEdgeSize());
     }
 
+    @Test
+    public void DFS() throws Exception {
+        this.graph.DFS();
+    }
+
+    @Test
+    public void BFS() throws Exception {
+        this.graph.BFS();
+    }
 }
