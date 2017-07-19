@@ -64,7 +64,7 @@ class Graph {
         Stack<Vertex> stack = new Stack<Vertex>();
         stack.push(this.vertexList[0]);
 
-        stackloop:
+        stackLoop:
         while (!stack.empty()) {
             Vertex v = stack.pop();
 
@@ -77,7 +77,7 @@ class Graph {
                         vIndex = i;
                         break;
                     } else {
-                        continue stackloop;
+                        continue stackLoop;
                     }
                 }
             }
@@ -104,7 +104,7 @@ class Graph {
         Queue<Vertex> queue = new LinkedList<Vertex>();
         queue.offer(this.vertexList[0]);
 
-        stackloop:
+        queueLoop:
         while (!queue.isEmpty()) {
             Vertex v = queue.poll();
 
@@ -118,7 +118,7 @@ class Graph {
                         break;
                     } else {
                         // already visited this vertex, then don't consider this one again
-                        continue stackloop;
+                        continue queueLoop;
                     }
                 }
             }
