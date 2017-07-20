@@ -69,4 +69,17 @@ public class GraphTest {
     public void BFS() throws Exception {
         this.graph.BFS();
     }
+
+    @Test
+    public void primAlgorithm() throws Exception {
+        System.out.println("shortest path value is: " + this.graph.primAlgorithm());
+        System.out.println("shortest path is: ");
+        for (int i = 0; i < this.graph.getShortestPath().length; i++) {
+            if (i != this.graph.getShortestPath().length - 1) {
+                System.out.print(this.graph.getShortestPath()[i] + " -> ");
+            } else {
+                System.out.println(this.graph.getShortestPath()[i]);
+            }
+        }
+    }
 }

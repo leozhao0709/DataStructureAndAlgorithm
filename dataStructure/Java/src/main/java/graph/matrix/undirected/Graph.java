@@ -16,6 +16,7 @@ class Graph {
     private int maxSize;
     private int nVertex;
     private boolean[] vertexVisited;
+    private Vertex[] shortestPath;
 
     Graph(int maxSize) {
         this.maxSize = maxSize;
@@ -36,6 +37,10 @@ class Graph {
             }
         }
         this.nVertex = 0;
+    }
+
+    public Vertex[] getShortestPath() {
+        return shortestPath;
     }
 
     void addVertex(String label) {
@@ -130,5 +135,52 @@ class Graph {
             }
 
         }
+    }
+
+    /**
+     * 普里姆算法. 每一步都取最短, 从而得到最短路径
+     *
+     * @return 最短路径
+     */
+    int primAlgorithm() {
+
+        int shortestValue = 0;
+        int[] shortestPathTemp = new int[nVertex];
+        this.shortestPath = new Vertex[nVertex];
+
+        for (int i = 0; i < nVertex; i++) {
+            shortestPathTemp[i] = this.edgeMatrix[0][i];
+            this.shortestPath[0] = this.vertexList[0];
+        }
+
+        int nShortestPathVertex = 1;
+        for (int i = 1; i < nVertex; i++) {
+
+            int min = Integer.MAX_VALUE;
+            int minIndex = -1;
+            for (int j = 1; j < nVertex; j++) {
+                if (shortestPathTemp[j] != 0 && shortestPathTemp[j] != Integer.MAX_VALUE) {
+                    if (shortestPathTemp[j] < min) {
+                        min = shortestPathTemp[j];
+                        minIndex = j;
+                    }
+                }
+            }
+
+            shortestValue += min;
+            shortestPathTemp[minIndex] = 0; // 0 means this vertex already in the shortest path, so do not retrive
+            this.shortestPath[nShortestPathVertex++] = this.vertexList[minIndex];
+
+            // after get the next value, we should update the shortestPathTemp to get the most recently shortestPathTemp
+            for (int j = 1; j < nVertex; j++) {
+                if (shortestPathTemp[j] != 0 && this.edgeMatrix[minIndex][j] < shortestPathTemp[j] ) {
+                    shortestPathTemp[j] = this.edgeMatrix[minIndex][j];
+                }
+            }
+        }
+
+
+
+        return shortestValue;
     }
 }
