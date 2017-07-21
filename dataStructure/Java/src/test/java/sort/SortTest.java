@@ -1,24 +1,33 @@
 package sort;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.Parameterized;
 import sort.common.SortFunction;
 import sort.selectionSort.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by lzhao on 7/20/17.
  */
 public class SortTest {
-    private int[] array;
+
+
+    private int n = 100000;
+    private final int MAXPRINTCOUNT = 20;
+
+    private int[] array = this.getRandomArray(n, 0, n);
 
     @Before
     public void setUp() throws Exception {
-        int n = 100000;
-
-        this.array = this.getRandomArray(n, 0, n);
+        if (n <= MAXPRINTCOUNT) {
+            System.out.println("original array" + Arrays.toString(this.array));
+            System.out.println("---------------------");
+        }
     }
 
     private int[] getRandomArray(int length, int minValue, int maxValue) {
@@ -37,6 +46,7 @@ public class SortTest {
     }
 
     private boolean isSortedArray(int[] array) {
+
         for (int i = 0; i < array.length-1; i++)
         {
             if (array[i] > array[i+1]) {
@@ -56,12 +66,25 @@ public class SortTest {
         long endTime = System.currentTimeMillis();
         System.out.println(sortName + ": " + (endTime - startTime) + " ms");
 
+        if (arrayCopy.length <= MAXPRINTCOUNT) {
+            System.out.println(sortName + " array: " + Arrays.toString(arrayCopy));
+        }
+
         if (!isSortedArray(arrayCopy)) {
             System.out.println(Arrays.toString(arrayCopy));
             throw new RuntimeException(sortName + " is wrong!!!");
         } else {
             System.out.println(sortName + " succeed!");
         }
+
+    }
+
+    private int[] getSortedCopyArray() {
+        int[] arrayCopy = new int[array.length];
+        System.arraycopy(array, 0, arrayCopy, 0, array.length);
+        Arrays.sort(arrayCopy);
+
+        return arrayCopy;
     }
 
     @After
@@ -72,7 +95,20 @@ public class SortTest {
     @Test
     public void selectionSortTest() throws Exception {
         SelectionSort selectionSort = new SelectionSort();
-        this.sortPerformanceTest("selectionSort", this.array, selectionSort);
+        Assert.assertArrayEquals(this.getSortedCopyArray(), selectionSort.sort(this.array));
     }
 
+    @Test
+    public void insertionSortTest() throws Exception {
+        InsertionSort insertionSort = new InsertionSort();
+        Assert.assertArrayEquals(this.getSortedCopyArray(), insertionSort.sort(this.array));
+    }
+
+    @Test
+    public void performanceTest() throws Exception {
+        SelectionSort selectionSort = new SelectionSort();
+        this.sortPerformanceTest("selectionSort", this.array, selectionSort);
+        InsertionSort insertionSort = new InsertionSort();
+        this.sortPerformanceTest("insertionSort", this.array, insertionSort);
+    }
 }

@@ -1,5 +1,6 @@
 package sort.selectionSort;
 import sort.common.SortFunction;
+import sort.common.SortUtils;
 
 /**
  * Created by lzhao on 7/20/17.
@@ -18,15 +19,9 @@ public class SelectionSort implements SortFunction {
                     min = array[j];
                 }
             }
-            swap(array, i, minIndex);
+            SortUtils.swap(array, i, minIndex);
         }
 
         return array;
-    }
-
-    private static void swap(int[] array, int i, int minIndex) {
-        int temp = array[i];
-        array[i] = array[minIndex];
-        array[minIndex] = temp;
     }
 }
