@@ -4,12 +4,11 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.Parameterized;
 import sort.common.SortFunction;
+import sort.insertionSort.InsertionSort;
 import sort.selectionSort.*;
 
 import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * Created by lzhao on 7/20/17.

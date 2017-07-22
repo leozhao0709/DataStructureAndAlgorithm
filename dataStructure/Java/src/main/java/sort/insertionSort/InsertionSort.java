@@ -1,4 +1,4 @@
-package sort.selectionSort;
+package sort.insertionSort;
 
 import sort.common.SortFunction;
 
