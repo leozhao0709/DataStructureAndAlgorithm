@@ -4,9 +4,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import sort.binaryInsertionSort.BinaryInsertionSort;
 import sort.common.SortFunction;
+import sort.heapSort.HeapSort;
 import sort.insertionSort.InsertionSort;
 import sort.selectionSort.*;
+import sort.shellSort.ShellSort;
 
 import java.util.Arrays;
 
@@ -16,17 +19,13 @@ import java.util.Arrays;
 public class SortTest {
 
 
-    private int n = 100000;
-    private final int MAXPRINTCOUNT = 20;
+    private int n = 10000000;
 
     private int[] array = this.getRandomArray(n, 0, n);
 
     @Before
     public void setUp() throws Exception {
-        if (n <= MAXPRINTCOUNT) {
-            System.out.println("original array" + Arrays.toString(this.array));
-            System.out.println("---------------------");
-        }
+
     }
 
     private int[] getRandomArray(int length, int minValue, int maxValue) {
@@ -46,9 +45,11 @@ public class SortTest {
 
     private boolean isSortedArray(int[] array) {
 
-        for (int i = 0; i < array.length-1; i++)
+        int[] sortedArrayCopy = this.getSortedCopyArray();
+
+        for (int i = 0; i < sortedArrayCopy.length; i++)
         {
-            if (array[i] > array[i+1]) {
+            if (array[i] != sortedArrayCopy[i]) {
                 return false;
             }
         }
@@ -65,12 +66,11 @@ public class SortTest {
         long endTime = System.currentTimeMillis();
         System.out.println(sortName + ": " + (endTime - startTime) + " ms");
 
-        if (arrayCopy.length <= MAXPRINTCOUNT) {
-            System.out.println(sortName + " array: " + Arrays.toString(arrayCopy));
-        }
 
         if (!isSortedArray(arrayCopy)) {
-            System.out.println(Arrays.toString(arrayCopy));
+            System.out.println("Original Array: " + Arrays.toString(this.array));
+            System.out.println("-----------------------------------");
+            System.out.println("Sorted result: " + Arrays.toString(arrayCopy));
             throw new RuntimeException(sortName + " is wrong!!!");
         } else {
             System.out.println(sortName + " succeed!");
@@ -92,22 +92,28 @@ public class SortTest {
     }
 
     @Test
-    public void selectionSortTest() throws Exception {
-        SelectionSort selectionSort = new SelectionSort();
-        Assert.assertArrayEquals(this.getSortedCopyArray(), selectionSort.sort(this.array));
-    }
-
-    @Test
-    public void insertionSortTest() throws Exception {
-        InsertionSort insertionSort = new InsertionSort();
-        Assert.assertArrayEquals(this.getSortedCopyArray(), insertionSort.sort(this.array));
+    public void binarySortTest() throws Exception {
+        BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
+        int[] array = new int[] {3, 1, 1, 0};
+        binaryInsertionSort.sort(array);
+        System.out.println(Arrays.toString(array));
     }
 
     @Test
     public void performanceTest() throws Exception {
-        SelectionSort selectionSort = new SelectionSort();
-        this.sortPerformanceTest("selectionSort", this.array, selectionSort);
-        InsertionSort insertionSort = new InsertionSort();
-        this.sortPerformanceTest("insertionSort", this.array, insertionSort);
+//        SelectionSort selectionSort = new SelectionSort();
+//        this.sortPerformanceTest("selectionSort", this.array, selectionSort);
+
+//        InsertionSort insertionSort = new InsertionSort();
+//        this.sortPerformanceTest("insertionSort", this.array, insertionSort);
+
+//        BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
+//        this.sortPerformanceTest("binaryInsertionSort", this.array, binaryInsertionSort);
+
+        ShellSort shellSort = new ShellSort();
+        this.sortPerformanceTest("shellSort", this.array, shellSort);
+
+        HeapSort heapSort = new HeapSort();
+        this.sortPerformanceTest("heapSort", this.array, heapSort);
     }
 }

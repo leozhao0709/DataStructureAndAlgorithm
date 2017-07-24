@@ -9,7 +9,7 @@ export const shellSort = <T>(arr: T[] = [], factor: number = 2): T[] => {
 
   while (gap > 0) {
     for (let i = gap; i < arrCopy.length; i++) {
-      for (let j = i; j > 0; j -= gap) {
+      for (let j = i; j >= gap; j -= gap) {
         if (arrCopy[j - gap] > arrCopy[j]) {
           [arrCopy[j - gap], arrCopy[j]] = [arrCopy[j], arrCopy[j - gap]];
         } else {
