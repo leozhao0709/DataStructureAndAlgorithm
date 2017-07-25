@@ -8,6 +8,7 @@ import sort.binaryInsertionSort.BinaryInsertionSort;
 import sort.common.SortFunction;
 import sort.heapSort.HeapSort;
 import sort.insertionSort.InsertionSort;
+import sort.quickSort.QuickSort;
 import sort.selectionSort.*;
 import sort.shellSort.ShellSort;
 
@@ -19,7 +20,7 @@ import java.util.Arrays;
 public class SortTest {
 
 
-    private int n = 10000000;
+    private int n = 1000000;
 
     private int[] array = this.getRandomArray(n, 0, n);
 
@@ -115,5 +116,8 @@ public class SortTest {
 
         HeapSort heapSort = new HeapSort();
         this.sortPerformanceTest("heapSort", this.array, heapSort);
+
+        QuickSort quickSort = new QuickSort();
+        this.sortPerformanceTest("quickSort", this.array, quickSort);
     }
 }
