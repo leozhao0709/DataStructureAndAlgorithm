@@ -8,6 +8,7 @@ import sort.binaryInsertionSort.BinaryInsertionSort;
 import sort.common.SortFunction;
 import sort.heapSort.HeapSort;
 import sort.insertionSort.InsertionSort;
+import sort.mergeSort.MergeSort;
 import sort.quickSort.QuickSort;
 import sort.selectionSort.*;
 import sort.shellSort.ShellSort;
@@ -63,7 +64,7 @@ public class SortTest {
         System.arraycopy(array, 0, arrayCopy, 0, array.length);
 
         long startTime = System.currentTimeMillis();
-        sortFunction.sort(arrayCopy);
+        arrayCopy = sortFunction.sort(arrayCopy);
         long endTime = System.currentTimeMillis();
         System.out.println(sortName + ": " + (endTime - startTime) + " ms");
 
@@ -111,7 +112,7 @@ public class SortTest {
 //        BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
 //        this.sortPerformanceTest("binaryInsertionSort", this.array, binaryInsertionSort);
 
-        ShellSort shellSort = new ShellSort();
+         ShellSort shellSort = new ShellSort();
         this.sortPerformanceTest("shellSort", this.array, shellSort);
 
         HeapSort heapSort = new HeapSort();
@@ -119,5 +120,8 @@ public class SortTest {
 
         QuickSort quickSort = new QuickSort();
         this.sortPerformanceTest("quickSort", this.array, quickSort);
+
+        MergeSort mergeSort = new MergeSort();
+        this.sortPerformanceTest("mergeSort", this.array, mergeSort);
     }
 }
