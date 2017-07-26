@@ -1,6 +1,9 @@
 package sort.quickSort;
 
 import sort.common.SortFunction;
+import sort.common.SortUtils;
+
+import java.util.Arrays;
 
 /**
  * Created by lzhao on 7/24/17.
@@ -25,6 +28,26 @@ public class QuickSort implements SortFunction {
     }
 
     private int partition(int[] array, int low, int high) {
-        return -1;
+
+        int reference = array[low];
+        int i = low + 1;
+        int j = high;
+
+        while (true) {
+            while (i <= high && array[i] < reference) {
+                i++;
+            }
+            while (j >= low+1 && array[j] > reference) {
+                j--;
+            }
+            if ( i > j) {
+                break;
+            }
+            SortUtils.swap(array, i, j);
+            i++;
+            j--;
+        }
+        SortUtils.swap(array, low, j);
+        return j;
     }
 }

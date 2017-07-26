@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class SortTest {
 
 
-    private int n = 1000000;
+    private int n = 10000000;
 
     private int[] array = this.getRandomArray(n, 0, n);
 
