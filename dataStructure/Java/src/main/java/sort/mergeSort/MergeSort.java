@@ -20,8 +20,7 @@ public class MergeSort implements SortFunction {
         int[] left = this.mergeSort(array, low, middle);
         int[] right = this.mergeSort(array, middle + 1, high);
 
-        int[] result = merge(left, right);
-        return result;
+        return merge(left, right);
     }
 
     private int[] merge(int[] left, int[] right) {
