@@ -25,7 +25,7 @@ public class LcsTest {
 
     @Test
     public void getLcs() throws Exception {
-        // ari or aoi
+        // arit or aoit
         String a = "androidStudio";
         String b = "algorithm";
 
