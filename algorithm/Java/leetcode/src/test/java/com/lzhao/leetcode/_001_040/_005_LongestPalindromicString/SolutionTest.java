@@ -22,6 +22,10 @@ public class SolutionTest {
         result = solution.longestPalindrome(testStr);
         assertEquals("bb", result);
 
+        testStr = "a";
+        result = solution.longestPalindrome(testStr);
+        assertEquals("a", result);
+
     }
 
 }

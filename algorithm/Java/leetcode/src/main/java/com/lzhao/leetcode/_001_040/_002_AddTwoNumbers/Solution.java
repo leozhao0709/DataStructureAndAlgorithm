@@ -15,7 +15,7 @@ package com.lzhao.leetcode._001_040._002_AddTwoNumbers;
 
 class Solution {
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+     ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
         int current = l1.val + l2.val;
         int c = 0;
