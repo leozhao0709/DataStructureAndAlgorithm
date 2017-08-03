@@ -32,6 +32,18 @@ public class LcsTest {
         int length = this.lcs.getLcs(a, b);
         System.out.println("lcs is " + this.lcs.getCommonString() + ", and length is " + length + ";");
 
+        a = "dbce";
+        b = "abcf";
+
+        length = this.lcs.getLcs(a, b);
+        System.out.println("lcs is " + this.lcs.getCommonString() + ", and length is " + length + ";");
+
+        a = "ABCBDAB";
+        b = "BDCABA";
+
+        length = this.lcs.getLcs(a, b);
+        System.out.println("lcs is " + this.lcs.getCommonString() + ", and length is " + length + ";");
+
     }
 
 }

@@ -32,8 +32,28 @@ class Lcs {
                 }
             }
         }
-        
 
+        int i = m, j = n;
+
+        while (i >=1 && j>= 1) {
+            if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                this.commonString += a.charAt(i-1);
+                i--;
+                j--;
+            } else if (table[i][j-1] > table[i-1][j]) {
+                j--;
+            } else {
+                i--;
+            }
+        }
+
+        StringBuilder builder = new StringBuilder(table[m][n]);
+        for (int k = table[m][n] - 1; k >= 0; k--)
+        {
+            builder.append(this.commonString.charAt(k));
+        }
+
+        this.commonString = builder.toString();
 
         return table[m][n];
     }
