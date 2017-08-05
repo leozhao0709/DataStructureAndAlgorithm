@@ -9,33 +9,68 @@ import java.util.Map;
 
 class Solution {
 
-     int lengthOfLongestSubstring(String s) {
+//     int lengthOfLongestSubstring(String s) {
+//        int result = 0;
+//
+//        Map<Character, Integer> resultMap = new HashMap<Character, Integer>();
+//
+//        int p = 0;
+//        int q = 0;
+//
+//        while (q < s.length()) {
+//            Character currentChar = s.charAt(q);
+//
+//            if (q - p > result) {
+//                result = q - p;
+//            }
+//            if (resultMap.containsKey(currentChar)) {
+//                if (p <= resultMap.get(currentChar)) {
+//                    p = resultMap.get(currentChar) + 1;
+//                }
+//            }
+//            resultMap.put(currentChar, q);
+//            q++;
+//        }
+//
+//        if (q - p > result) {
+//            result = q - p;
+//        }
+//
+//        return result;
+//    }
+
+    int lengthOfLongestSubstring(String s) {
         int result = 0;
 
-        Map<Character, Integer> resultMap = new HashMap<Character, Integer>();
-
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        
         int p = 0;
         int q = 0;
-
+        
         while (q < s.length()) {
             Character currentChar = s.charAt(q);
+            
+            if (!map.containsKey(currentChar)) {
+                map.put(currentChar, q);
+                q++;
+            } else {
+                int low = map.get(currentChar);
 
-            if (q - p > result) {
-                result = q - p;
-            }
-            if (resultMap.containsKey(currentChar)) {
-                if (p <= resultMap.get(currentChar)) {
-                    p = resultMap.get(currentChar) + 1;
+                for (int i = p; i < low; i++)
+                {
+                    map.remove(s.charAt(i));
                 }
+
+                map.put(currentChar, q);
+
+                p = low+1;
+                q++;
             }
-            resultMap.put(currentChar, q);
-            q++;
-        }
 
-        if (q - p > result) {
-            result = q - p;
+            if (map.size() > result) {
+                result = map.size();
+            }
         }
-
         return result;
     }
 }
