@@ -16,7 +16,16 @@ class Solution {
             p = p.next;
         }
 
-        
+        if (n == 0 && p == null) {
+            return head.next;
+        }
+
+        while (p.next != null) {
+            p = p.next;
+            q = q.next;
+        }
+
+        q.next = q.next.next == null? null:q.next.next;
 
         return head;
     }
