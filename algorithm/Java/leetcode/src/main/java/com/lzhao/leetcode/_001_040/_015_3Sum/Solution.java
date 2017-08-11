@@ -19,7 +19,6 @@ class Solution {
             if (i != 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            Integer current = nums[i];
             List<List<Integer>> threeSumArray = this.threeSum(nums, i, nums.length - 1);
             result.addAll(threeSumArray);
         }
