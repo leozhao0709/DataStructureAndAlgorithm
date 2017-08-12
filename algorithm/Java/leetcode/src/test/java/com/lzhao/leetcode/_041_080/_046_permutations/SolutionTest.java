@@ -25,8 +25,11 @@ public class SolutionTest {
 
     @Test
     public void permute() throws Exception {
-        int[] nums = new int[] {1, 2, 3};
+        int[] nums = new int[] {1, 2, 3, 4};
         System.out.println(this.solution.permute(nums));
+
+        String s = "1234";
+        System.out.println(this.solution.permute(s));
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 class Solution {
 
     private List<List<Integer>> result = new ArrayList<List<Integer>>();
+    private List<String> result1 = new ArrayList<String>();
 
     List<List<Integer>> permute(int[] nums) {
 
@@ -41,5 +42,33 @@ class Solution {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    List<String> permute(String s) {
+        char[] c = s.toCharArray();
+        this.permute(c, 0, c.length-1);
+
+        return this.result1;
+    }
+
+    private void permute(char[] c, int i, int j) {
+
+        if (i >= j) {
+            this.result1.add(new String(c));
+            return;
+        }
+
+        for (int k = i; k <=j; k++)
+        {
+            this.swap(c, i, k);
+            this.permute(c, i+1, j);
+            this.swap(c, k, i);
+        }
+    }
+
+    private void swap(char[] c, int i, int j) {
+        char temp = c[i];
+        c[i] = c[j];
+        c[j] = temp;
     }
 }
