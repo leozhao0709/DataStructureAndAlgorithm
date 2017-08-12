@@ -31,10 +31,14 @@ class Solution {
             return;
         }
 
-        for (int k = i; k <=j ; k++)
+        loop: for (int k = i; k <=j ; k++)
         {
-            if (k!=i && (nums[k] == nums[i] )) {
-                continue;
+            int curr = nums[k];
+
+            for (int l = k+1; l <= j; l++) {
+                if (curr == nums[l]) {
+                    continue loop;
+                }
             }
 
             this.swap(nums, i, k);
