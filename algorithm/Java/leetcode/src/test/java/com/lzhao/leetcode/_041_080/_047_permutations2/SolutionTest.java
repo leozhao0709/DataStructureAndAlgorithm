@@ -26,7 +26,7 @@ public class SolutionTest {
     @Test
     public void permute() throws Exception {
 //        int[] nums = new int[] {1, 1, 2, 2};
-        int[] nums = new int[] {3, 3, 0, 3};
+        int[] nums = {3, 3, 0, 3};
 //        int[] nums = new int[] {0, 1, 0, 0, 9};
 //        int[] nums = new int[] {1, 1, 1, 2, 3};
 
