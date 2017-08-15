@@ -27,21 +27,21 @@ public class SolutionTest {
 
     @Test
     public void nextPermutation() throws Exception {
-        int[] nums = new int[] {1, 2, 3};
+        int[] nums = new int[] {1, 3, 2};
         this.solution.nextPermutation(nums);
         System.out.println(Arrays.toString(nums));
 
-        nums = new int[] {3, 2, 1};
-        this.solution.nextPermutation(nums);
-        System.out.println(Arrays.toString(nums));
-
-        nums = new int[] {1, 1, 5};
-        this.solution.nextPermutation(nums);
-        System.out.println(Arrays.toString(nums));
-
-        nums = new int[] {2,3,1,3,3};
-        this.solution.nextPermutation(nums);
-        System.out.println(Arrays.toString(nums));
+//        nums = new int[] {3, 2, 1};
+//        this.solution.nextPermutation(nums);
+//        System.out.println(Arrays.toString(nums));
+//
+//        nums = new int[] {1, 1, 5};
+//        this.solution.nextPermutation(nums);
+//        System.out.println(Arrays.toString(nums));
+//
+//        nums = new int[] {2,3,1,3,3};
+//        this.solution.nextPermutation(nums);
+//        System.out.println(Arrays.toString(nums));
     }
 
 }

@@ -45,7 +45,7 @@ class Solution {
     }
 
     private void swap(int[] nums, int i, int j) {
-        if (i < nums.length && j < nums.length && i > 0 && j > 0) {
+        if (i < nums.length && j < nums.length && i >= 0 && j >= 0) {
             int temp = nums[i];
             nums[i] = nums[j];
             nums[j] = temp;
