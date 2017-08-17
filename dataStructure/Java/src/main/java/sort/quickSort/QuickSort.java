@@ -27,7 +27,7 @@ public class QuickSort implements SortFunction {
         quickSort(array, p+1, high);
     }
 
-    private int partition(int[] array, int low, int high) {
+     int partition(int[] array, int low, int high) {
 
         int reference = array[low];
         int i = low + 1;
