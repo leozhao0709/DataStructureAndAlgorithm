@@ -18,10 +18,19 @@ class Solution {
         ListNode curr = head;
 
         while (curr != null) {
+            boolean duplicated = false;
             while (curr.next != null && curr.next.val == curr.val) {
+                duplicated = true;
                 curr = curr.next;
             }
-            
+
+            if (duplicated) {
+                pre.next = curr.next;
+                curr = curr.next;
+            } else {
+                pre = pre.next;
+                curr = curr.next;
+            }
 
         }
 

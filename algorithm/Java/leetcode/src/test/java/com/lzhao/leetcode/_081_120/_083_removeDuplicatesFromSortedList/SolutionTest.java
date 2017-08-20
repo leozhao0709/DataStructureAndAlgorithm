@@ -32,9 +32,8 @@ public class SolutionTest {
         head.next = node1;
         node1.next = node2;
 
-        this.solution.deleteDuplicates(head);
 
-        ListNode p = head;
+        ListNode p = this.solution.deleteDuplicates(head);
         while (p != null) {
             System.out.print(p.val + " ");
             p = p.next;
@@ -45,11 +44,10 @@ public class SolutionTest {
         node2.next = node3;
         node3.next = node4;
 
-        p = head;
 
         System.out.println();
 
-        this.solution.deleteDuplicates(head);
+        p = this.solution.deleteDuplicates(head);
 
         while (p != null) {
             System.out.print(p.val + " ");

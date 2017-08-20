@@ -14,21 +14,17 @@ class Solution {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
-        ListNode p = head;
-        ListNode q = head.next;
+        ListNode pre = dummy;
+        ListNode curr = head;
 
-        while (q != null) {
-            if (p.val == q.val) {
-                if (q.next != null) {
-                    p.next = q.next;
-                } else {
-                    p.next = null;
-                }
-                q = q.next;
-            } else {
-                p = p.next;
-                q = q.next;
+        while (curr != null) {
+            while (curr.next != null && curr.val == curr.next.val) {
+                curr = curr.next;
             }
+
+            pre.next = curr;
+            pre = pre.next;
+            curr = curr.next;
         }
 
         return dummy.next;
