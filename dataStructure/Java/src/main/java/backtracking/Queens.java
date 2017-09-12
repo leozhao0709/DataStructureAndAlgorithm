@@ -24,7 +24,7 @@ class Queens {
     /**
      * 填第n列的皇后
      */
-    void getQueenPositionAtCol(int n) {
+    private void getQueenPositionAtCol(int n) {
         boolean[] rows = new boolean[queenNumber];
         Arrays.fill(rows, true);
         // 获取皇后可放置的位置, 从第0列开始遍历
