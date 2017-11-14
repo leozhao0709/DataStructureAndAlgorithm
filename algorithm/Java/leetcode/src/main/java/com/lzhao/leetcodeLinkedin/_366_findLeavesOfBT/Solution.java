@@ -34,7 +34,7 @@ class Solution {
         this.helper(root.right, res);
     }
 
-    int depth(TreeNode root) {
+    private int depth(TreeNode root) {
         if (root == null) {
             return 0;
         }
