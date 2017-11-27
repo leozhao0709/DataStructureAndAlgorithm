@@ -1,7 +1,9 @@
 package com.lzhao.leetcodeLinkedin._047_permutations2;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lzhao on 9/23/17.
