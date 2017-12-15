@@ -30,7 +30,7 @@ class TopKFrequencyWords {
                 if(entry.getValue() > queue.peek().getValue()) {
                     queue.poll();
                     queue.offer(entry);
-                } else if(entry.getValue() == queue.peek().getValue()) {
+                } else if(entry.getValue().equals(queue.peek().getValue())) {
                     if(entry.getKey().compareTo(queue.peek().getKey()) < 0) {
                         queue.poll();
                         queue.offer(entry);

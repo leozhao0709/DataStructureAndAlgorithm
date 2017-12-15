@@ -8,83 +8,64 @@ import java.util.*;
 
 class WordLadder {
 
-    class Ladder {
-        String word;
-        String parentWord;
-        int distance;
-
-        Ladder(String word, String parentWord, int distance) {
-            this.word = word;
-            this.distance = distance;
-            this.parentWord = parentWord;
-        }
-    }
-
     List<String> findLadders(String beginWord, String endWord, List<String> wordList) {
         Set<String> wordSet = new HashSet<String>(wordList);
-        Map<String, Ladder> map = new HashMap<String, Ladder>();
+        Map<String, String> map = new HashMap<String, String>();
+        wordSet.remove(beginWord);
         this.BFS(beginWord, endWord, wordSet, map);
 
         return this.findOnePath(beginWord, endWord, map);
     }
 
-    private List<String> findOnePath(String beginWord, String endWord, Map<String, Ladder> map) {
+    private List<String> findOnePath(String beginWord, String endWord, Map<String, String> map) {
         List<String> res = new LinkedList<String>();
 
-        if (!map.containsKey(endWord))
-        {
+        if (!map.containsKey(endWord)) {
             return res;
-        } else
-        {
+        } else {
             res.add(endWord);
-            String parent = map.get(endWord).parentWord;
-            while (!parent.equals(beginWord))
-            {
+            String parent = map.get(endWord);
+            while (parent != null) {
                 res.add(parent);
-                parent = map.get(parent).parentWord;
+                parent = map.get(parent);
             }
-            res.add(beginWord);
             Collections.reverse(res);
         }
 
         return res;
     }
 
-    private void BFS(String beginWord, String endWord, Set<String> wordSet, Map<String, Ladder> map) {
-        Queue<Ladder> queue = new LinkedList<Ladder>();
+    private void BFS(String beginWord, String endWord, Set<String> wordSet, Map<String, String> map) {
+        Queue<String> queue = new LinkedList<String>();
 
-        queue.offer(new Ladder(beginWord, null, 1));
+        queue.offer(beginWord);
+        map.put(beginWord, null);
+        while (!queue.isEmpty()) {
+            String curr = queue.poll();
 
-        while (!queue.isEmpty())
-        {
-            Ladder currLadder = queue.poll();
-            String curr = currLadder.word;
-            if (curr.equals(endWord))
+            char[] currArray = curr.toCharArray();
+
+            for (int i = 0; i < currArray.length; i++)
             {
-                return;
-            }
-
-            for (int i = 0; i < curr.length(); i++)
-            {
-                char[] currArray = curr.toCharArray();
                 char temp = currArray[i];
-                for (char j = 'a'; j <= 'z'; j++)
-                {
-                    if (temp != j)
-                    {
+                for(char j = 'a'; j <= 'z'; j++) {
+                    if (j != temp) {
                         currArray[i] = j;
                         String next = new String(currArray);
-                        if (wordSet.contains(next))
-                        {
-                            Ladder nextLadder = new Ladder(next, curr, currLadder.distance + 1);
-                            queue.offer(nextLadder);
-                            map.put(next, nextLadder);
+                        if (wordSet.contains(next)) {
+                            queue.offer(next);
+                            map.put(next, curr);
                             wordSet.remove(next);
+
+                            if (next.equals(endWord)) {
+                                return;
+                            }
                         }
                     }
                 }
+                currArray[i] = temp;
             }
-
         }
     }
+
 }

@@ -28,9 +28,18 @@ public class WordLadderTest {
 
     @Test
     public void findLadders() throws Exception {
-        String beginWord = "hit";
-        String endWord = "cog";
-        List<String> wordList = Arrays.asList("hot","dot","dog","lot","log","cog");
+//        String beginWord = "hit";
+//        String endWord = "cog";
+//        List<String> wordList = Arrays.asList("hot","dot","dog","lot","log","cog");
+//
+//        List<String> res = this.wordLadder.findLadders(beginWord, endWord, wordList);
+//
+//        System.out.println(Arrays.deepToString(res.toArray()));
+
+
+        String beginWord = "hot";
+        String endWord = "dog";
+        List<String> wordList = Arrays.asList("hot","dog","dot");
 
         List<String> res = this.wordLadder.findLadders(beginWord, endWord, wordList);
 
