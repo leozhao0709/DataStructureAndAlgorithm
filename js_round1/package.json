@@ -28,7 +28,7 @@
   "scripts": {
     "start": "",
     "test": "yarn typeCheck && yarn lint && yarn jest",
-    "jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "jest": "jest",
     "typeCheck": "tsc --noEmit",
     "test:watch": "jest --watch --coverage=false",
     "build": "NODE_ENV=production yarn build:clean && ttsc -p tsconfig.build.json",
@@ -48,6 +48,5 @@
   "keywords": [],
   "engines": {
     "node": ">=v16.13.0"
-  },
-  "type": "module"
+  }
 }
