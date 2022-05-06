@@ -1,28 +1,68 @@
-// // https://leetcode.com/problems/design-circular-queue/
+// https://leetcode.com/problems/design-circular-queue/
 
-// class MyCircularQueue {
-//   constructor(k: number) {}
+class MyCircularQueue {
+  private arr: number[];
+  private front: number;
+  private rear: number;
+  private length: number;
 
-//   enQueue(value: number): boolean {}
+  constructor(k: number) {
+    this.length = k;
+    this.arr = new Array(5).fill(0);
+    this.front = 0;
+    this.rear = 0;
+  }
 
-//   deQueue(): boolean {}
+  enQueue(value: number): boolean {
+    if (this.isFull()) {
+      return false;
+    }
+    this.rear = this.rear + 1;
+    this.arr[this.rear] = value;
+    return true;
+  }
 
-//   Front(): number {}
+  deQueue(): boolean {
+    if (this.isEmpty()) {
+      return false;
+    }
+    this.front = this.front + 1;
+    return true;
+  }
 
-//   Rear(): number {}
+  Front(): number {
+    if (this.isEmpty()) {
+      return -1;
+    }
+    return this.arr[this.front];
+  }
 
-//   isEmpty(): boolean {}
+  Rear(): number {
+    if (this.isEmpty()) {
+      return -1;
+    }
+    return this.arr[this.rear];
+  }
 
-//   isFull(): boolean {}
-// }
+  isEmpty(): boolean {
+    return this.front === this.rear;
+  }
 
-// /**
-//  * Your MyCircularQueue object will be instantiated and called as such:
-//  * var obj = new MyCircularQueue(k)
-//  * var param_1 = obj.enQueue(value)
-//  * var param_2 = obj.deQueue()
-//  * var param_3 = obj.Front()
-//  * var param_4 = obj.Rear()
-//  * var param_5 = obj.isEmpty()
-//  * var param_6 = obj.isFull()
-//  */
+  isFull(): boolean {
+    return (
+      this.rear > this.front && (this.rear - this.front) % this.length === 0
+    );
+  }
+}
+
+export default MyCircularQueue;
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * var obj = new MyCircularQueue(k)
+ * var param_1 = obj.enQueue(value)
+ * var param_2 = obj.deQueue()
+ * var param_3 = obj.Front()
+ * var param_4 = obj.Rear()
+ * var param_5 = obj.isEmpty()
+ * var param_6 = obj.isFull()
+ */
