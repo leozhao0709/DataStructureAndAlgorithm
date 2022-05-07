@@ -2,23 +2,29 @@
 
 class MyCircularQueue {
   private arr: number[];
+  // current Dequeue Index
   private front: number;
+  // the next enQueueIndex
   private rear: number;
   private length: number;
 
   constructor(k: number) {
-    this.length = k;
-    this.arr = new Array(5).fill(0);
+    this.arr = new Array(k).fill(0);
     this.front = 0;
     this.rear = 0;
+    this.length = 0;
   }
 
   enQueue(value: number): boolean {
     if (this.isFull()) {
       return false;
     }
-    this.rear = this.rear + 1;
     this.arr[this.rear] = value;
+    this.rear = this.rear + 1;
+    if (this.rear === this.arr.length) {
+      this.rear = 0;
+    }
+    this.length++;
     return true;
   }
 
@@ -27,6 +33,10 @@ class MyCircularQueue {
       return false;
     }
     this.front = this.front + 1;
+    if (this.front === this.arr.length) {
+      this.front = 0;
+    }
+    this.length--;
     return true;
   }
 
@@ -41,17 +51,19 @@ class MyCircularQueue {
     if (this.isEmpty()) {
       return -1;
     }
-    return this.arr[this.rear];
+    return this.arr[this.modular(this.rear - 1, this.arr.length)];
   }
 
   isEmpty(): boolean {
-    return this.front === this.rear;
+    return this.length === 0;
   }
 
   isFull(): boolean {
-    return (
-      this.rear > this.front && (this.rear - this.front) % this.length === 0
-    );
+    return this.length === this.arr.length;
+  }
+
+  private modular(a: number, b: number): number {
+    return ((a % b) + b) % b;
   }
 }
 
