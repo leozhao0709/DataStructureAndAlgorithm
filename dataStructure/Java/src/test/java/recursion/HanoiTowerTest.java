@@ -25,7 +25,7 @@ public class HanoiTowerTest {
 
     @Test
     public void move() throws Exception {
-        this.hanoiTower.move(3, 'A', 'B', 'C');
+        this.hanoiTower.move(4, 'A', 'B', 'C');
     }
 
 }
