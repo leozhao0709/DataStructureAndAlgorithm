@@ -9,8 +9,8 @@ describe('quickSort', () => {
   });
 
   it('should partition correctly', () => {
-    const arr = [5, 6, 7, 9, 10, 89, 100];
-    const index = partition(arr, 0, arr.length - 1);
-    expect(index).toBe(0);
+    const arr = [7, 6, 5, 9];
+    const index = partition(arr, 0, 2);
+    expect(index).toBe(2);
   });
 });

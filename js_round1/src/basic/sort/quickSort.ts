@@ -44,7 +44,9 @@ const quickSort = (arr: number[], leftIndex?: number, rightIndex?: number) => {
     return;
   }
 
+  console.log('before:', arr, leftIndex, rightIndex);
   const candidateIndex = partition(arr, leftIndex, rightIndex);
+  console.log('after:', arr, candidateIndex);
   quickSort(arr, leftIndex, candidateIndex - 1);
   quickSort(arr, candidateIndex + 1, rightIndex);
 };
