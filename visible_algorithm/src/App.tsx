@@ -1,14 +1,28 @@
 import React from 'react';
+import _ from 'lodash';
 import styles from './App.module.scss';
-import img1 from './assets/images/smallImage.png';
-import svg1 from './assets/svg/svg1.svg';
+import Canvas from './components/Canvas';
 
 const App: React.FC = () => {
+  const [canvasSize, setCanvasSize] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  React.useEffect(() => {
+    const resize = _.debounce(() => {
+      setCanvasSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }, 300);
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, []);
+
   return (
     <div className={styles.App}>
-      <h1>mycli generated react project</h1>
-      <img src={img1} alt="img1" />
-      <img src={svg1} alt="svg1" />
+      <Canvas width={canvasSize.width} height={canvasSize.height} />
     </div>
   );
 };
