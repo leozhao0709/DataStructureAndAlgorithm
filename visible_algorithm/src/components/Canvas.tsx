@@ -1,7 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 import { BallCanvas } from '../canvas/BallCanvas';
-import { Ball } from '../model/Ball';
 
 interface CanvasProps extends React.HTMLAttributes<HTMLCanvasElement> {
   width: number;
@@ -16,11 +15,10 @@ const Canvas: React.FC<CanvasProps> = (props: CanvasProps) => {
   React.useEffect(() => {
     if (canvasRef && canvasRef.current) {
       const canvasEl = canvasRef.current;
-
-      const myCanvas = new BallCanvas(canvasEl);
-      myCanvas.draw();
+      const ballCanvas = new BallCanvas(canvasEl);
+      ballCanvas.run();
     }
-  }, [width, height, canvasRef]);
+  }, [canvasRef]);
 
   return (
     <canvas
