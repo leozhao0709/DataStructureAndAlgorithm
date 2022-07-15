@@ -14,4 +14,11 @@ describe('topKFrequent', () => {
     const res = topKFrequent(nums, k);
     expect(res).toEqual([1]);
   });
+
+  it('should return [0] when nums = [3, 0, 1, 0], k = 1', () => {
+    const nums = [3, 0, 1, 0];
+    const k = 1;
+    const res = topKFrequent(nums, k);
+    expect(res).toEqual([0]);
+  });
 });
