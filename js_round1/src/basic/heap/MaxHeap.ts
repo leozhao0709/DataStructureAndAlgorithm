@@ -12,12 +12,19 @@ export class MaxHeap<T> {
     }
   }
 
-  // /**
-  //  * debug
-  //  */
-  // public debug() {
-  //   console.log(this.dataArray);
-  // }
+  /**
+   * debug
+   */
+  public debug() {
+    console.log(this.dataArray.length);
+  }
+
+  /**
+   * peek
+   */
+  public peek() {
+    return this.dataArray[0];
+  }
 
   /**
    * enqueue
@@ -31,8 +38,11 @@ export class MaxHeap<T> {
    * dequeue
    */
   public dequeue(): T {
-    if (this.dataArray.length <= 1) {
-      return this.dataArray[0];
+    if (this.dataArray.length === 0) {
+      throw 'please enque element first';
+    }
+    if (this.dataArray.length === 1) {
+      return this.dataArray.pop()!;
     }
     this.swap(0, this.dataArray.length - 1);
     const data = this.dataArray.pop()!;
@@ -108,6 +118,7 @@ export class MaxHeap<T> {
         maxChildIndex: this.leftChildIndex(index),
       };
     }
+
     if (this.compareFunc(leftChild, rightChild) > 0) {
       return {
         maxChild: leftChild,
