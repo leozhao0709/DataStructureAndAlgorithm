@@ -4,7 +4,7 @@ export const partition = (
   rightIndex: number
 ): number => {
   const candidate = arr[leftIndex];
-  let i = leftIndex;
+  let i = leftIndex + 1;
   let j = rightIndex;
 
   const swap = (arr: number[], i: number, j: number) => {
@@ -12,18 +12,23 @@ export const partition = (
     arr[i] = arr[j];
     arr[j] = temp;
   };
-  while (i < j) {
-    while (i < rightIndex && arr[i] <= candidate) {
+
+  while (i <= j) {
+    while (i <= rightIndex && arr[i] < candidate) {
       i++;
     }
 
-    while (j > leftIndex && arr[j] >= candidate) {
+    while (j >= leftIndex + 1 && arr[j] > candidate) {
       j--;
     }
 
-    if (i < j) {
-      swap(arr, i, j);
+    if (i > j) {
+      break;
     }
+
+    swap(arr, i, j);
+    i++;
+    j--;
   }
 
   swap(arr, leftIndex, j);
@@ -44,9 +49,7 @@ const quickSort = (arr: number[], leftIndex?: number, rightIndex?: number) => {
     return;
   }
 
-  console.log('before:', arr, leftIndex, rightIndex);
   const candidateIndex = partition(arr, leftIndex, rightIndex);
-  console.log('after:', arr, candidateIndex);
   quickSort(arr, leftIndex, candidateIndex - 1);
   quickSort(arr, candidateIndex + 1, rightIndex);
 };

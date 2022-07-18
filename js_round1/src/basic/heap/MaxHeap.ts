@@ -16,7 +16,23 @@ export class MaxHeap<T> {
    * debug
    */
   public debug() {
-    console.log(this.dataArray.length);
+    console.log(this.dataArray.slice(0, 100));
+  }
+
+  /**
+   * isValid
+   */
+  public isValid() {
+    for (let i = 0; i < this.dataArray.length; i++) {
+      const { maxChild } = this.getMaxChild(i);
+      if (
+        maxChild !== undefined &&
+        this.compareFunc(maxChild, this.dataArray[i]) > 0
+      ) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -87,7 +103,7 @@ export class MaxHeap<T> {
       throw new Error('invalid index');
     }
     let { maxChild, maxChildIndex } = this.getMaxChild(index);
-    if (!maxChild) {
+    if (maxChild === undefined) {
       return;
     }
     while (maxChild !== undefined) {

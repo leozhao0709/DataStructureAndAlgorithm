@@ -1,23 +1,23 @@
 import findKthLargest from '@app/leetcode/_201_250/_215_kthLargeElementInAnArray/findKthLargest';
 
 describe('leetcode 215 findKthLargest', () => {
-  // it('should return 5 when nums = [3,2,1,5,6,4], k = 2', () => {
-  //   const nums = [3, 2, 1, 5, 6, 4];
-  //   const k = 2;
-  //   expect(findKthLargest(nums, k)).toEqual(5);
-  // });
+  it('should return 5 when nums = [3,2,1,5,6,4], k = 2', () => {
+    const nums = [3, 2, 1, 5, 6, 4];
+    const k = 2;
+    expect(findKthLargest(nums, k)).toEqual(5);
+  });
 
-  // it('should return 4 when nums = [3,2,3,1,2,4,5,5,6], k = 4', () => {
-  //   const nums = [3, 2, 3, 1, 2, 4, 5, 5, 6],
-  //     k = 4;
-  //   expect(findKthLargest(nums, k)).toEqual(4);
-  // });
+  it('should return 4 when nums = [3,2,3,1,2,4,5,5,6], k = 4', () => {
+    const nums = [3, 2, 3, 1, 2, 4, 5, 5, 6],
+      k = 4;
+    expect(findKthLargest(nums, k)).toEqual(4);
+  });
 
-  // it('should return 2 when nums = [-1, 2, 0], k = 1', () => {
-  //   const nums = [-1, 2, 0],
-  //     k = 1;
-  //   expect(findKthLargest(nums, k)).toEqual(2);
-  // });
+  it('should return 2 when nums = [-1, 2, 0], k = 1', () => {
+    const nums = [-1, 2, 0],
+      k = 1;
+    expect(findKthLargest(nums, k)).toEqual(2);
+  });
 
   it(`should return correct value when it's a large array`, () => {
     const nums = [
@@ -3136,6 +3136,6 @@ describe('leetcode 215 findKthLargest', () => {
       -324, 1363, 1147, -335, 4748,
     ];
     const k = 15991;
-    expect(findKthLargest(nums.sort(), k)).toBe(955);
+    expect(findKthLargest(nums, k)).toBe(955);
   });
 });
