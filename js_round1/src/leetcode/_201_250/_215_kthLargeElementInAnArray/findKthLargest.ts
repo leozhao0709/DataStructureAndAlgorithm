@@ -19,11 +19,10 @@ function partition(
 
   let i = leftIndex + 1;
   let j = rightIndex;
-  // const refIndex =
-  //   leftIndex + Math.floor((rightIndex - leftIndex + 1) * Math.random());
-  const refIndex = leftIndex;
-  swap(nums, leftIndex, refIndex);
+  const refIndex =
+    leftIndex + Math.floor((rightIndex - leftIndex + 1) * Math.random());
   const ref = nums[refIndex];
+  swap(nums, leftIndex, refIndex);
 
   while (i <= j) {
     while (i <= rightIndex && nums[i] < ref) {
