@@ -16,4 +16,12 @@ describe('leetcode 127 word ladder2', () => {
 
     expect(ladderLength(beginWord, endWord, wordList)).toEqual(0);
   });
+
+  it(`should return 2 when beginWord = "a", endWord = "c", wordList = ["a","b","c"]`, () => {
+    const beginWord = 'a';
+    const endWord = 'c';
+    const wordList = ['a', 'b', 'c'];
+
+    expect(ladderLength(beginWord, endWord, wordList)).toEqual(2);
+  });
 });

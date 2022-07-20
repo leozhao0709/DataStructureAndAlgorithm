@@ -9,27 +9,32 @@ function ladderLength(
     return 0;
   }
 
-  return ladderLengthWithSteps(beginWord, endWord, wordList);
-}
+  const wordSet = new Set(wordList);
+  const queue = [beginWord];
 
-function ladderLengthWithSteps(
-  beginWord: string,
-  endWord: string,
-  wordList: string[],
-  steps = 0
-): number {
-  if (steps > wordList.length) {
-    return 0;
+  let steps = 0;
+  while (queue.length > 0) {
+    steps++;
+    const queueSize = queue.length;
+    for (let i = 0; i < queueSize; i++) {
+      const word = queue.shift()!;
+      for (let j = 0; j < word.length; j++) {
+        const charArr = word.split('').map((char) => char.charCodeAt(0));
+        for (let k = 97; k < 97 + 26; k++) {
+          charArr[j] = k;
+          const nextWord = String.fromCharCode(...charArr);
+          if (wordSet.has(nextWord)) {
+            if (nextWord === endWord) {
+              return steps + 1;
+            }
+            wordSet.delete(nextWord);
+            queue.push(nextWord);
+          }
+        }
+      }
+    }
   }
-
-  if (beginWord === endWord) {
-    return steps;
-  }
-
-  const beginWordCharArr = beginWord
-    .split('')
-    .map((char) => char.charCodeAt(0));
-  for (let i = 0; i < beginWordCharArr.length; i++) {}
+  return 0;
 }
 
 export default ladderLength;
