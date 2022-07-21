@@ -7,6 +7,8 @@ function findLadders(
 ): string[][] {
   const result: string[][] = [];
 
+  // BFSSearch(beginWord, endWord, wordList, result);
+
   const shortestSteps = BFS(beginWord, endWord, new Set(wordList));
   if (shortestSteps === 0) {
     return result;
@@ -15,6 +17,68 @@ function findLadders(
   DFS(beginWord, endWord, new Set(wordList), shortestSteps, result);
   return result;
 }
+
+// interface Node {
+//   word: string;
+//   parent: Node | null;
+// }
+
+// function BFSSearch(
+//   beginWord: string,
+//   endWord: string,
+//   wordList: string[],
+//   result: string[][]
+// ) {
+//   const queue: Node[] = [];
+//   const beginNode: Node = { word: beginWord, parent: null };
+//   queue.push(beginNode);
+
+//   const levelVisitedSet = new Set<string>();
+//   let stopAtCurrentLevel = false;
+//   while (queue.length > 0 && !stopAtCurrentLevel) {
+//     const lengthInCurrentLevel = queue.length;
+//     for (let i = 0; i < lengthInCurrentLevel; i++) {
+//       levelVisitedSet.add(queue[i].word);
+//     }
+
+//     for (let i = 0; i < lengthInCurrentLevel; i++) {
+//       const node = queue.shift()!;
+//       const word = node.word;
+
+//       const wordVistedSet = new Set<string>(levelVisitedSet);
+//       for (let i = 0; i < word.length; i++) {
+//         const wordArr = word.split('').map((char) => char.charCodeAt(0));
+//         for (let j = 97; j < 97 + 26; j++) {
+//           wordArr[i] = j;
+//           const checkingWord = String.fromCharCode(...wordArr);
+
+//           if (
+//             wordList.includes(checkingWord) &&
+//             !wordVistedSet.has(checkingWord)
+//           ) {
+//             const nextNode = { word: checkingWord, parent: node };
+//             if (checkingWord === endWord) {
+//               stopAtCurrentLevel = true;
+//               result.push(getPath(nextNode));
+//             } else {
+//               queue.push(nextNode);
+//               wordVistedSet.add(checkingWord);
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// function getPath(node: Node | null): string[] {
+//   const result: string[] = [];
+//   while (node !== null) {
+//     result.push(node.word);
+//     node = node.parent;
+//   }
+//   return result.reverse();
+// }
 
 function BFS(beginWord: string, endWord: string, wordSet: Set<string>): number {
   const queue: string[] = [];
@@ -62,22 +126,22 @@ function DFS(
 
   for (let i = 0; i < beginWord.length; i++) {
     const wordArr = beginWord.split('').map((char) => char.charCodeAt(0));
+    const wordSetCopy = new Set(wordSet);
     for (let j = 97; j < 97 + 26; j++) {
       wordArr[i] = j;
       const word = String.fromCharCode(...wordArr);
       if (word === beginWord || currentTrace.includes(word)) {
         continue;
       }
-      if (wordSet.has(word)) {
+      if (wordSetCopy.has(word)) {
         const trace = [...currentTrace, word];
         console.log(trace);
         if (word === endWord) {
           result.push(trace);
           continue;
         }
-        wordSet.delete(word);
-        DFS(word, endWord, wordSet, expectedSteps, result, trace);
-        wordSet.add(word);
+        wordSetCopy.delete(word);
+        DFS(word, endWord, wordSetCopy, expectedSteps, result, trace);
       }
     }
   }
@@ -577,6 +641,8 @@ const wordList = [
   'aaaaz',
 ];
 
+console.log(wordList.length);
+console.log(new Set(wordList).size);
 console.log(findLadders(beginWord, endWord, wordList));
 
 export default findLadders;
