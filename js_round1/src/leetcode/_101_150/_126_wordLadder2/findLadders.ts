@@ -55,9 +55,6 @@ function BFSSearch(
 
     for (let i = 0; i < lengthInCurrentLevel; i++) {
       const node = queue.shift()!;
-      if (visitedSet.has(node.word)) {
-        continue;
-      }
       console.log(node.word, node.parent?.word, visitedSet.has(node.word));
       const word = node.word;
 
