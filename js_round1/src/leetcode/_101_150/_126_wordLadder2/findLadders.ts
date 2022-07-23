@@ -5,156 +5,99 @@ function findLadders(
   endWord: string,
   wordList: string[]
 ): string[][] {
+  const vertex = new Set<string>();
+  const graph = new Map<string, Set<string>>();
+
+  const depth = BFSBuildGraph(beginWord, endWord, wordList, vertex, graph);
+
+  if (depth === -1) {
+    return [];
+  }
+
   const result: string[][] = [];
-
-  BFSSearch(beginWord, endWord, wordList, result);
-
-  // const shortestSteps = BFS(beginWord, endWord, new Set(wordList));
-  // if (shortestSteps === 0) {
-  //   return result;
-  // }
-
-  // DFS(beginWord, endWord, new Set(wordList), shortestSteps, result);
-
+  DFSSearch1(beginWord, endWord, graph, depth, result);
   return result;
 }
 
-interface Node {
-  word: string;
-  parent: Node | null;
-}
-
-function BFSSearch(
-  beginWord: string,
-  endWord: string,
-  wordList: string[],
-  result: string[][]
-) {
-  const queue: Node[] = [];
-  const beginNode: Node = { word: beginWord, parent: null };
-  queue.push(beginNode);
-
+function BFSBuildGraph(
+  beginWord,
+  endWord,
+  wordList,
+  vertex: Set<string>,
+  graph: Map<string, Set<string>>
+): number {
   const wordSet = new Set(wordList);
-  const visitedSet = new Set<string>();
+  const queue: string[] = [beginWord];
+  let depth = 0;
+  vertex.add(beginWord);
   let stopAtCurrentLevel = false;
-
-  // beginWord = "red", endWord = "tax", wordList = ["ted","tex","red","tax","tad","den","rex","pee"]
-  // ['red', 'ted', 'tad', 'tax'],
-  // ['red', 'ted', 'tex', 'tax'],
-  // ['red', 'rex', 'tex', 'tax'],
-  let level = 0;
   while (queue.length > 0 && !stopAtCurrentLevel) {
-    level++;
-    const lengthInCurrentLevel = queue.length;
-
-    for (let i = 0; i < lengthInCurrentLevel; i++) {
-      visitedSet.add(queue[i].word);
-    }
-
-    console.log('-----', level, lengthInCurrentLevel, visitedSet.size);
-
-    for (let i = 0; i < lengthInCurrentLevel; i++) {
-      const node = queue.shift()!;
-      console.log(node.word, node.parent?.word, visitedSet.has(node.word));
-      const word = node.word;
-
-      const wordSetCopy = new Set(wordSet);
-      for (let i = 0; i < word.length; i++) {
-        const wordArr = word.split('').map((char) => char.charCodeAt(0));
-        for (let j = 97; j < 97 + 26; j++) {
-          wordArr[i] = j;
-          const checkingWord = String.fromCharCode(...wordArr);
-          if (checkingWord === word) {
-            continue;
-          }
-
-          if (wordSetCopy.has(checkingWord) && !visitedSet.has(checkingWord)) {
-            const nextNode = { word: checkingWord, parent: node };
-            if (checkingWord === endWord) {
-              stopAtCurrentLevel = true;
-              result.push(getPath(nextNode));
-            } else {
-              queue.push(nextNode);
-            }
-            wordSetCopy.delete(checkingWord);
-          }
-        }
-      }
-    }
-  }
-}
-
-function getPath(node: Node | null): string[] {
-  const result: string[] = [];
-  while (node !== null) {
-    result.push(node.word);
-    node = node.parent;
-  }
-  return result.reverse();
-}
-
-function BFS(beginWord: string, endWord: string, wordSet: Set<string>): number {
-  const queue: string[] = [];
-
-  queue.push(beginWord);
-
-  let steps = 0;
-  while (queue.length > 0) {
-    steps++;
+    depth++;
     const queueLength = queue.length;
     for (let i = 0; i < queueLength; i++) {
-      const word = queue.shift()!;
-      for (let j = 0; j < word.length; j++) {
-        const wordArr = word.split('').map((char) => char.charCodeAt(0));
-        for (let k = 97; k < 97 + 26; k++) {
-          wordArr[j] = k;
-          const nextWord = String.fromCharCode(...wordArr);
+      // these word already traversed in previous level
+      vertex.add(queue[i]);
+    }
 
-          if (wordSet.has(nextWord)) {
+    const seenInCurrentLevel = new Set<string>();
+    for (let i = 0; i < queueLength; i++) {
+      const word = queue.shift()!;
+
+      for (let i = 0; i < word.length; i++) {
+        const charArr = word.split('').map((char) => char.charCodeAt(0));
+        for (let j = 97; j < 97 + 26; j++) {
+          charArr[i] = j;
+          const nextWord = String.fromCharCode(...charArr);
+
+          if (wordSet.has(nextWord) && !vertex.has(nextWord)) {
             if (nextWord === endWord) {
-              return steps + 1;
-            } else {
-              queue.push(nextWord);
-              wordSet.delete(nextWord);
+              stopAtCurrentLevel = true;
             }
+            if (!seenInCurrentLevel.has(nextWord)) {
+              queue.push(nextWord);
+              seenInCurrentLevel.add(nextWord);
+            }
+            if (!graph.has(word)) {
+              graph.set(word, new Set<string>());
+            }
+            graph.get(word)?.add(nextWord);
           }
         }
       }
     }
   }
-  return 0;
+  if (stopAtCurrentLevel) {
+    vertex.add(endWord);
+  }
+
+  if (!vertex.has(endWord)) {
+    return -1;
+  }
+
+  return depth + 1;
 }
 
-function DFS(
+function DFSSearch1(
   beginWord: string,
   endWord: string,
-  wordSet: Set<string>,
-  expectedSteps: number,
+  graph: Map<string, Set<string>>,
+  maxDepth: number,
   result: string[][],
   currentTrace: string[] = [beginWord]
 ) {
-  if (currentTrace.length >= expectedSteps) {
+  if (beginWord === endWord) {
+    result.push(currentTrace);
     return;
   }
 
-  for (let i = 0; i < beginWord.length; i++) {
-    const wordArr = beginWord.split('').map((char) => char.charCodeAt(0));
-    for (let j = 97; j < 97 + 26; j++) {
-      wordArr[i] = j;
-      const word = String.fromCharCode(...wordArr);
-      if (word === beginWord || currentTrace.includes(word)) {
-        continue;
-      }
-      if (wordSet.has(word)) {
-        const trace = [...currentTrace, word];
-        if (word === endWord) {
-          result.push(trace);
-          continue;
-        }
-        wordSet.delete(word);
-        DFS(word, endWord, new Set(wordSet), expectedSteps, result, trace);
-      }
-    }
+  if (currentTrace.length >= maxDepth) {
+    return;
+  }
+
+  const edges = graph.get(beginWord)!;
+  for (const word of edges) {
+    const tempTrace = [...currentTrace, word];
+    DFSSearch1(word, endWord, graph, maxDepth, result, tempTrace);
   }
 }
 
@@ -652,8 +595,6 @@ const wordList = [
   'aaaaz',
 ];
 
-console.log(wordList.length);
-console.log(new Set(wordList).size);
-console.log(findLadders(beginWord, endWord, wordList));
+// console.log(findLadders(beginWord, endWord, wordList));
 
 export default findLadders;
