@@ -1,7 +1,8 @@
 // https://leetcode.com/problems/reverse-pairs/
 
 function reversePairs(nums: number[]): number {
-  return mergeSortAndCount(nums);
+  const result = mergeSortAndCount(nums);
+  return result;
 }
 
 function mergeSortAndCount(
@@ -36,18 +37,22 @@ function mergeAndCount(
 
   let count = 0;
   while (i < leftArr.length && j < rightArr.length) {
+    if (leftArr[i] > 2 * rightArr[j]) {
+      count += leftArr.length - i;
+      j++;
+    } else {
+      i++;
+    }
+  }
+
+  i = 0;
+  j = 0;
+
+  while (i < leftArr.length && j < rightArr.length) {
     if (leftArr[i] < rightArr[j]) {
       nums[k] = leftArr[i];
       i++;
     } else {
-      let tempIndex = i;
-      while (tempIndex < leftArr.length) {
-        if (leftArr[tempIndex] > 2 * rightArr[j]) {
-          count += leftArr.length - tempIndex;
-          break;
-        }
-        tempIndex++;
-      }
       nums[k] = rightArr[j];
       j++;
     }

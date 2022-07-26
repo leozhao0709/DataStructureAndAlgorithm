@@ -1,17 +1,17 @@
 import reversePairs from '@app/leetcode/_451_500/_493_reversePairs/reversePairs';
 
 describe('reversePairs', () => {
-  xit('should return 2 when nums = [1, 3, 2, 3, 1]', () => {
+  it('should return 2 when nums = [1, 3, 2, 3, 1]', () => {
     const nums = [1, 3, 2, 3, 1];
     expect(reversePairs(nums)).toEqual(2);
   });
 
-  xit('should return 3 when nums = [2, 4, 3, 5, 1]', () => {
+  it('should return 3 when nums = [2, 4, 3, 5, 1]', () => {
     const nums = [2, 4, 3, 5, 1];
     expect(reversePairs(nums)).toEqual(3);
   });
 
-  xit('should return 1 when nums = [-5, -5]', () => {
+  it('should return 1 when nums = [-5, -5]', () => {
     const nums = [-5, -5];
     expect(reversePairs(nums)).toEqual(1);
   });
