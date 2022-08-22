@@ -1,28 +1,24 @@
 // https://leetcode.com/problems/first-unique-character-in-a-string/
 
 function firstUniqChar(s: string): number {
-  const map = new Map<string, number | null>();
+  const map = new Map<string, number>();
 
-  for (let i = 0; i < s.length; i++) {
+  const n = s.length;
+  for (let i = 0; i < n; i++) {
     const char = s[i];
     if (!map.has(char)) {
-      map.set(char, i);
+      map.set(char, 1);
     } else {
-      if (map.get(char) !== null) {
-        map.set(char, null);
-      }
+      const count = map.get(char)!;
+      map.set(char, count + 1);
     }
   }
 
-  let result = -1;
-  let minIndex = Number.MAX_SAFE_INTEGER;
-
-  for (const [, val] of map) {
-    if (val !== undefined && val !== null && val < minIndex) {
-      result = val;
-      minIndex = val;
+  for (let i = 0; i < n; i++) {
+    if (map.get(s.charAt(i)) === 1) {
+      return i;
     }
   }
 
-  return result;
+  return -1;
 }
