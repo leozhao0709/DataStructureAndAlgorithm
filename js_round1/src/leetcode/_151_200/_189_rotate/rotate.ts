@@ -46,3 +46,5 @@ function rotate(nums: number[], k: number): void {
     prev = nums[start];
   }
 }
+
+export default rotate;
