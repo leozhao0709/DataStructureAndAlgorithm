@@ -14,7 +14,7 @@ function createBST(
   const mid = start + Math.floor((end - start) / 2);
   const root = new TreeNode(nums[mid]);
 
-  root.left = createBST(nums, start, mid);
+  root.left = createBST(nums, start, mid - 1);
   root.right = createBST(nums, mid + 1, end);
 
   return root;
