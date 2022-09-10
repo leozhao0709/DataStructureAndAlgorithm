@@ -3,8 +3,8 @@ function fib(n: number): number {
     return n;
   }
 
-  let prev1 = 0;
-  let prev2 = 1;
+  let prev1 = 1;
+  let prev2 = 0;
   let curr = 0;
   for (let i = 2; i <= n; i++) {
     curr = prev1 + prev2;
