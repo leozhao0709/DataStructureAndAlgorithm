@@ -1,4 +1,4 @@
-class Solution {
+class ShuffleArray {
   private readonly originalArr: number[];
 
   constructor(nums: number[]) {
