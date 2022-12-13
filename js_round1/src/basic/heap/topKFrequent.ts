@@ -15,7 +15,7 @@ function topKFrequent(nums: number[], k: number): number[] {
     array.push(entry);
   }
 
-  // {1: 3, 2: 2, 3: 1}
+  console.log(array);
   const maxHeap = new MaxHeap<[number, number]>((a, b) => a[1] - b[1], array);
 
   const res: number[] = [];
@@ -27,3 +27,9 @@ function topKFrequent(nums: number[], k: number): number[] {
 }
 
 export default topKFrequent;
+
+// test
+
+const nums = [5, 3, 1, 1, 1, 3, 73, 1],
+  k = 2;
+console.log(topKFrequent(nums, k));

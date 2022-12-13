@@ -22,6 +22,7 @@ function isBipartite(graph: number[][]): boolean {
     return true;
   };
 
+  // the graph may have single vertex which not connected to other vertex, so need to check all vertex
   for (let i = 0; i < n; i++) {
     if (colors[i] === -1) {
       if (!canFillColor(i, 0)) {
