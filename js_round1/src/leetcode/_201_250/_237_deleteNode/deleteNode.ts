@@ -3,9 +3,9 @@
 class ListNode {
   val: number;
   next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val;
+    this.next = next;
   }
 }
 
@@ -17,3 +17,7 @@ function deleteNode(root: ListNode | null): void {
   root!.val = nextNode.val;
   root!.next = nextNode.next;
 }
+
+// export let undefined;
+
+export let undefined;

@@ -57,11 +57,6 @@
 //   }
 // }
 
-// interface TrieNode {
-//   isWord: boolean;
-//   next?: Map<string, TrieNode>;
-// }
-
 class TrieNode {
   constructor(
     public currWord: string | undefined = undefined,
