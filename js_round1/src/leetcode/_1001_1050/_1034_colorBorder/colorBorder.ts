@@ -87,5 +87,11 @@ function colorBorder(
     [2, 2, 2, 2, 1, 2],
     [1, 2, 2, 2, 1, 2],
   ];
-  console.log(colorBorder(grid, 1, 3, 1));
+  console.log(colorBorder(grid, 1, 3, 4));
+
+  [
+    [1, 4, 1, 4, 1, 2],
+    [4, 2, 4, 4, 1, 2],
+    [1, 4, 4, 4, 1, 2],
+  ];
 }
