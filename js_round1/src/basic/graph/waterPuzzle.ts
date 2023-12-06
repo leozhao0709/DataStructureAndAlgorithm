@@ -17,8 +17,8 @@ const waterPuzzle = (
     c: 6,
   },
   initialState = {
-    a: 5,
-    b: 0,
+    a: 0,
+    b: 4,
     c: 6,
   },
   targetA = 7
